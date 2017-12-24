@@ -1,7 +1,7 @@
 const express=require('express');
 const hbs=require('hbs');
-
 var app= express();
+var port=process.env.PORT || 3000;
 const fs=require('fs');
 app.set('view engine','hbs');
 app.use(express.static(__dirname ));
@@ -42,7 +42,9 @@ app.get('/blue',(req,res)=>{
     res.render('rexa.hbs',{credit:'some author'});
 });
 app.get('/',(req,res)=>{res.send({great:"mom n dad r great!"})});
-app.listen(3000);
+app.listen(port,()=>{
+  console.log(`server is on port ${port}`);
+});
 /*app.listen(3000,(req,res)=>{
   console.log("server on port:3000"+__dirname);
 });*/
