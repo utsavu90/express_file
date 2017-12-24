@@ -1,7 +1,7 @@
 const express=require('express');
 const hbs=require('hbs');
 var app= express();
-var port=process.env.PORT || 3000;
+var port=process.env.PORT || 80;
 const fs=require('fs');
 app.set('view engine','hbs');
 app.use(express.static(__dirname ));
@@ -28,9 +28,15 @@ hbs.registerHelper('date',()=>{
 hbs.registerHelper('upstream',(text)=>{
   return text.toUpperCase();
 });
-app.get('/tree',(req,res/*,next*/)=>{
+app.get('/tree',(req,res,next)=>{
   res.render('about.hbs',{credit:'some author',text:'urvashi krishnatra'});
-  //next();
+  next();
+});
+app.get('/detail',(req,res,next)=>{
+  res.render('detail.hbs',{
+    good:"community",person:"man"
+  });
+  next();
 });
 
 
@@ -42,7 +48,7 @@ app.get('/blue',(req,res)=>{
     res.render('rexa.hbs',{credit:'some author'});
 });
 app.get('/',(req,res)=>{res.send({great:"mom n dad r great!"})});
-app.listen(port,()=>{
+app.listen(port,(req,res)=>{
   console.log(`server is on port ${port}`);
 });
 /*app.listen(3000,(req,res)=>{
